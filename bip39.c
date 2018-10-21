@@ -153,7 +153,7 @@ int mnemonic_to_entropy(const char *mnemonic, uint8_t *entropy)
 	n++;
 
 	// check number of words
-	if (n != 12 && n!=15 && n != 18 && n!=21 && n != 24 && n!=27) {
+	if (n != 12 && n!=15 && n != 18 && n!=21 && n != 24) {
 		return 0;
 	}
 
@@ -213,8 +213,12 @@ int mnemonic_check(const char *mnemonic)
 	sha256_Raw(bits, words * 4 / 3, bits);
 	if (words == 12) {
 		return (bits[0] & 0xF0) == (checksum & 0xF0); // compare first 4 bits
+	} else if (words == 15) {
+		return (bits[0] & 0xF8) == (checksum & 0xF8); // compare first 5 bits
 	} else if (words == 18) {
 		return (bits[0] & 0xFC) == (checksum & 0xFC); // compare first 6 bits
+	} else if (words == 21) {
+		return (bits[0] & 0xFE) == (checksum & 0xFE); // compare first 7 bits
 	} else if (words == 24) {
 		return bits[0] == checksum; // compare 8 bits
 	}
