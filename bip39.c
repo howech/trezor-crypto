@@ -153,7 +153,7 @@ int mnemonic_to_entropy(const char *mnemonic, uint8_t *entropy)
 	n++;
 
 	// check number of words
-	if (n != 12 && n != 18 && n != 24) {
+	if (n != 12 && n!=15 && n != 18 && n!=21 && n != 24 && n!=27) {
 		return 0;
 	}
 
